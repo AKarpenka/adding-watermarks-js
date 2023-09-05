@@ -1,0 +1,51 @@
+#drop-area {
+    border: 2px dashed #253954;
+    border-radius: 20px;
+    max-width: 480px;
+    font-family: inherit;
+    font-weight: 200;
+    font-size: 14pt;
+    margin: 50px auto;
+    padding: 30px 50px;
+    background-color: #ffffff6f;
+    color: black;
+    text-align: center;
+}
+
+#drop-area.highlight {
+    border-color: purple;
+}
+
+p {
+    margin-bottom: 5px;
+}
+  
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #ccc;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button:hover {
+    background: #ddd;
+}
+
+/* #gallery {
+    margin-top: 10px;
+}
+
+#gallery img {
+    width: 150px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+} */
+
+#fileElem {
+    display: none;
+}
+  
+
