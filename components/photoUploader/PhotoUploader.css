@@ -1,7 +1,7 @@
 #drop-area {
     border: 2px dashed #253954;
     border-radius: 20px;
-    max-width: 480px;
+    width: 70%;
     font-family: inherit;
     font-weight: 200;
     font-size: 14pt;
@@ -13,7 +13,8 @@
 }
 
 #drop-area.highlight {
-    border-color: purple;
+    border-color: #ccc;
+    background-color: #5147476f;
 }
 
 p {
@@ -33,19 +34,54 @@ p {
     background: #ddd;
 }
 
-/* #gallery {
+#gallery {
     margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
-#gallery img {
+#gallery div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#gallery div img {
     width: 150px;
-    margin-bottom: 10px;
-    margin-right: 10px;
     vertical-align: middle;
-} */
+}
+
+.trash {
+    width: 150px;
+    height: 100%;
+    position: absolute !important;
+    top: 0;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.trash:hover {
+    background-color:rgba(53, 53, 53, 0.3);
+}
+
+.trash svg {
+    cursor: pointer;
+    height: 40px;
+    fill: rgba(255, 255, 255, 0.9);
+}
 
 #fileElem {
     display: none;
 }
+
+#maxCountOfPhoto {
+    display: none;
+    margin-top: 15px;
+}
+
   
 
