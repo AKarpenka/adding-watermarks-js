@@ -1,8 +1,8 @@
 import './BtnBlue.css';
 
-const BtnBlue = (value) => {
+const BtnBlue = (value, id, disable, onClickHandlee) => {
     return (`
-        <button role="button">${value}</button>
+        <button id=${id} role="button" disabled=${disable} onclick="console.log('work')" >${value}</button>
     `)
 }
 
