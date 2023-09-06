@@ -1,0 +1,41 @@
+.edit-container {}
+
+.edit-header {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color: #E94B1C;
+}
+
+.edit-header a {
+    font-size: 12pt;
+    cursor: pointer;
+    color: #FFF;
+}
+
+.edit-header a:hover {
+    color: #253954;
+}
+
+.edit-header button {
+    font-size: 12pt;
+    line-height: 12px;
+    padding: 20px 60px;
+}
+
+#editContent {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    height: 100%;
+}
+
+#editGallery {
+    padding: 20px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items:center;
+}

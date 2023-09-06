@@ -1,0 +1,30 @@
+.img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.img-container img {
+    width: 150px;
+    vertical-align: middle;
+}
+
+.trash, .eye {
+    width: 150px;
+    height: 100%;
+    position: absolute !important;
+    top: 0;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.trash:hover, .eye:hover {
+    background-color:rgba(53, 53, 53, 0.3);
+}
+
+svg {
+    cursor: pointer;
+    height: 40px;
+    fill: rgba(255, 255, 255, 0.9);
+}

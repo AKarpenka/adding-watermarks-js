@@ -43,37 +43,6 @@ p {
     gap: 10px;
 }
 
-#gallery div {
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-#gallery div img {
-    width: 150px;
-    vertical-align: middle;
-}
-
-.trash {
-    width: 150px;
-    height: 100%;
-    position: absolute !important;
-    top: 0;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-}
-
-.trash:hover {
-    background-color:rgba(53, 53, 53, 0.3);
-}
-
-.trash svg {
-    cursor: pointer;
-    height: 40px;
-    fill: rgba(255, 255, 255, 0.9);
-}
-
 #fileElem {
     display: none;
 }
