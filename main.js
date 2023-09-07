@@ -1,5 +1,5 @@
 import './style.css';
-import Home from './pages/home/Home';
+import Home from './src/pages/home/Home';
 
 document.querySelector('#app').innerHTML = Home();
 
