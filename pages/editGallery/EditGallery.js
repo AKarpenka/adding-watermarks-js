@@ -22,6 +22,7 @@ const EditGallery = (files, settings = {
     backBtn.innerText = "< Назад";
 
     let downloadFiles = document.createElement('button');
+    downloadFiles.id = "downloadFiles"
     downloadFiles.innerText = "Скачать файлы";
 
     let galleryContainer = document.createElement('div');
@@ -34,6 +35,39 @@ const EditGallery = (files, settings = {
     editContainer.querySelector('#editHeader a').addEventListener('click', () => {
         location.reload();
     });
+
+    editContainer.querySelector('#downloadFiles').addEventListener('click', () => {
+        let filesForDownload = document.querySelectorAll('.img-container>img');
+        filesForDownload.forEach((file, i) => {
+            downloadImage(file?.currentSrc, `img-${i+1}`)
+                .then(() => {
+                    console.log('The image has been downloaded');
+                })
+                .catch(err => {
+                    console.log('Error downloading image: ', err);
+                });
+        });
+        
+    });
+
+    async function downloadImage(
+        imageSrc,
+        nameOfDownload = 'my-image.png',
+    ) {
+        const response = await fetch(imageSrc);
+        const blobImage = await response.blob();
+        const href = URL.createObjectURL(blobImage);
+      
+        const anchorElement = document.createElement('a');
+        anchorElement.href = href;
+        anchorElement.download = nameOfDownload;
+      
+        document.body.appendChild(anchorElement);
+        anchorElement.click();
+      
+        document.body.removeChild(anchorElement);
+        window.URL.revokeObjectURL(href);
+      }
 
     return editContainer;
 }
