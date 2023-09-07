@@ -12,6 +12,7 @@ const PhotoSettings = (files) => {
 
     let addLogoBtn = document.createElement('input');
     addLogoBtn.type = "button";
+    addLogoBtn.id = "addLogoBtn";
     addLogoBtn.value = "Добавить логотип";
 
     createMainBtns();
@@ -22,6 +23,7 @@ const PhotoSettings = (files) => {
         editMenu.appendChild(addLogoBtn);
 
         editMenu.querySelector('#addTextBtn').addEventListener('click', onClickAddTextBtn);
+        editMenu.querySelector('#addLogoBtn').addEventListener('click', onClickAddLogoBtn);
     }
 
     function onClickAddTextBtn() {
@@ -115,6 +117,10 @@ const PhotoSettings = (files) => {
             galleryContainer.innerHTML = "";
             files.forEach(file => previewFilesAsCanvas(file, galleryContainer, obj));
         }
+    }
+
+    function onClickAddLogoBtn() {
+        console.log('hey');
     }
 
     return editMenu;
