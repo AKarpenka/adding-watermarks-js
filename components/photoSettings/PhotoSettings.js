@@ -1,7 +1,7 @@
 import './PhotoSettings.css';
+import { previewFilesAsCanvas } from '../previewFile/PreviewFile';
 
-
-const PhotoSettings = () => {
+const PhotoSettings = (files) => {
     let editMenu = document.createElement('div');
     editMenu.id = 'editMenu';
 
@@ -54,7 +54,7 @@ const PhotoSettings = () => {
             'Сверху справа',
             'Посередине слева',
             'Посередине',
-            'Посередине слева',
+            'Посередине справа',
             'Снизу слева',
             'Снизу посередине',
             'Снизу справа'
@@ -81,10 +81,7 @@ const PhotoSettings = () => {
             createMainBtns();
         });
 
-        editMenu.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            console.log('submit');
-        });
+        editMenu.querySelector('form').addEventListener('submit', handleSubmit);
 
 
         function createDivSetting(text, el) {
@@ -103,6 +100,20 @@ const PhotoSettings = () => {
             option.value = value;
             option.innerText = `${value}${unit}`;
             el.appendChild(option);
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            let obj = {
+                'text': e?.target[0]?.value || "Ваш текст",
+                'fontSize': e?.target[1]?.value,
+                'transparency': e?.target[2]?.value,
+                'position': e?.target[3]?.value
+            }
+
+            let galleryContainer = document.querySelector('#editGallery');
+            galleryContainer.innerHTML = "";
+            files.forEach(file => previewFilesAsCanvas(file, galleryContainer, obj));
         }
     }
 

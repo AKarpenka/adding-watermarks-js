@@ -26,7 +26,8 @@ export function previewFileAsImg(file, elementToAppend, handleDelete) {
 }
 
 
-export function previewFilesAsCanvas(file, elementToAppend) {
+export function previewFilesAsCanvas(file, elementToAppend, settings) {
+    const {text, fontSize, transparency, position} = settings;
     let app = document.querySelector('#app');
 
     let reader = new FileReader();
@@ -41,7 +42,7 @@ export function previewFilesAsCanvas(file, elementToAppend) {
         let newImg = document.createElement('img');
         newImg.src = watermakImageWithText(
             originalImg,
-            "some text"
+            text
           );
         newImg.id = file.lastModified; 
 
@@ -89,11 +90,50 @@ export function previewFilesAsCanvas(file, elementToAppend) {
             context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
 
             // adding a watermark text
-            context.fillStyle = "white";
-            context.textBaseline = "middle";
-            context.font = "bold 25pt serif";
-            context.fillText(watermarkText, canvasWidth - 100, canvasHeight - 20);
-          
+            context.fillStyle = `rgba(255, 225, 225, ${transparency/100})`;
+            context.font = `bold ${fontSize}pt sans-serif`;
+
+            switch (position) {
+                case 'Сверху слева':
+                    context.textAlign = "start";
+                    context.fillText(watermarkText, 30, 40);
+                    break;
+                case 'Сверху посередине':
+                    context.textAlign = "center";
+                    context.fillText(watermarkText, canvasWidth/2, 40);
+                    break;
+                case 'Сверху справа':
+                    context.textAlign = "end";
+                    context.fillText(watermarkText, canvasWidth-30, 40);
+                    break;
+                case 'Посередине слева':
+                    context.textAlign = "start";
+                    context.fillText(watermarkText, 30, canvasHeight/2);
+                    break;
+                case 'Посередине':
+                    context.textAlign = "center";
+                    context.fillText(watermarkText, canvasWidth/2, canvasHeight/2);
+                    break;
+                case 'Посередине справа':
+                    context.textAlign = "end";
+                    context.fillText(watermarkText, canvasWidth-30, canvasHeight/2);
+                    break;
+                case 'Снизу слева':
+                    context.textAlign = "start";
+                    context.fillText(watermarkText, 30, canvasHeight-40);
+                    break;
+                case 'Снизу посередине':
+                    context.textAlign = "center";
+                    context.fillText(watermarkText, canvasWidth/2, canvasHeight-40);
+                    break;
+                case 'Снизу справа':
+                    context.textAlign = "end";
+                    context.fillText(watermarkText, canvasWidth-30, canvasHeight-40);
+                    break;
+                default:
+                    break;
+            }
+
             return canvas.toDataURL();
         }
 
