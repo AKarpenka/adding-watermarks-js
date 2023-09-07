@@ -1,12 +1,12 @@
 .homePage {
     min-height: 100vh;
-    background: rgb(233,75,28);
     background: linear-gradient(180deg, rgba(37,57,84,1) 0%, rgba(233,75,28,1) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #FFF;
+    padding: 40px 0;
 }
 
 h1 {

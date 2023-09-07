@@ -30,22 +30,81 @@ const PhotoSettings = () => {
         let backToBtn = document.createElement('a');
         backToBtn.innerText = "< Назад";
 
-        // let form = document.createElement('form');
-        // form.id =
+        let form = document.createElement('form');
 
         let addTextInput = document.createElement('input');
         addTextInput.type = "text";
-        editMenu.append(backToBtn, addTextInput);
+        addTextInput.id = "textValue";
+        addTextInput.placeholder = "Ваш текст";
+
+        let fontSize = document.createElement('select');
+        for(let i = 10; i <= 42; i += 2) {
+            createSelect(i, fontSize, 'pt');
+        }
+
+        let transparency = document.createElement('select');
+        for(let i = 10; i <= 100; i += 10) {
+            createSelect(i, transparency, '%');
+        }
+
+        let position = document.createElement('select');
+        const positionOptions = [
+            'Сверху слева',
+            'Сверху посередине',
+            'Сверху справа',
+            'Посередине слева',
+            'Посередине',
+            'Посередине слева',
+            'Снизу слева',
+            'Снизу посередине',
+            'Снизу справа'
+        ];
+        positionOptions.forEach(el => {
+            createSelect(el, position);
+        });
+
+        let submitBtn = document.createElement('input');
+        submitBtn.type = 'submit';
+        submitBtn.value = 'Применить';
+
+        form.append(
+            createDivSetting('Текст', addTextInput), 
+            createDivSetting('Размер шрифта', fontSize), 
+            createDivSetting('Прозрачность', transparency), 
+            createDivSetting('Позиция', position), 
+            submitBtn
+        );
+        editMenu.append(backToBtn, form);
 
         editMenu.querySelector('a').addEventListener('click', () => {
             editMenu.innerHTML = "";
             createMainBtns();
-        })
+        });
+
+        editMenu.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('submit');
+        });
+
+
+        function createDivSetting(text, el) {
+            let div = document.createElement('div');
+            div.classList.add('setting');
+
+            let lable = document.createElement('p');
+            lable.innerText = text;
+
+            div.append(lable, el);
+            return div;
+        }
+
+        function createSelect(value, el, unit = '') {
+            let option = document.createElement('option');
+            option.value = value;
+            option.innerText = `${value}${unit}`;
+            el.appendChild(option);
+        }
     }
-
-
-    //функция со свойствами, передать выше в форму с кнопкой отправить 
-
 
     return editMenu;
 }
