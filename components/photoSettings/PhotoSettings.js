@@ -30,6 +30,9 @@ const PhotoSettings = () => {
         let backToBtn = document.createElement('a');
         backToBtn.innerText = "< Назад";
 
+        // let form = document.createElement('form');
+        // form.id =
+
         let addTextInput = document.createElement('input');
         addTextInput.type = "text";
         editMenu.append(backToBtn, addTextInput);
@@ -39,6 +42,9 @@ const PhotoSettings = () => {
             createMainBtns();
         })
     }
+
+
+    //функция со свойствами, передать выше в форму с кнопкой отправить 
 
 
     return editMenu;

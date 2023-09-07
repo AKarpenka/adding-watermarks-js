@@ -1,6 +1,6 @@
 .edit-container {}
 
-.edit-header {
+#editHeader {
     width: 100%;
     padding: 20px 40px;
     display: flex;
@@ -9,17 +9,17 @@
     background-color: #E94B1C;
 }
 
-.edit-header a {
+#editHeader a {
     font-size: 12pt;
     cursor: pointer;
     color: #FFF;
 }
 
-.edit-header a:hover {
+#editHeader a:hover {
     color: #253954;
 }
 
-.edit-header button {
+#editHeader button {
     font-size: 12pt;
     line-height: 12px;
     padding: 20px 60px;

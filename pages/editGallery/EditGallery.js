@@ -1,5 +1,5 @@
 import './EditGallery.css';
-import { previewFile } from '../../components/previewFile/PreviewFile';
+import { previewFilesAsCanvas } from '../../components/previewFile/PreviewFile';
 import PhotoSettings from '../../components/photoSettings/PhotoSettings';
 
 const EditGallery = (files) => {
@@ -8,18 +8,27 @@ const EditGallery = (files) => {
 
     let galleryContainer = document.createElement('div');
     galleryContainer.id = 'editGallery';
-    files.forEach(file => previewFile(file, galleryContainer, false, true, null, null));
+    files.forEach(file => previewFilesAsCanvas(file, galleryContainer));
 
     editContainer.innerHTML = `
-        <div class="edit-header"> 
-            <a> < Назад </a>
-            <button>Скачать файлы</button>
+        <div id="editHeader"> 
         </div>
         <div id="editContent">
         </div>
     `;
 
+    let backBtn = document.createElement('a');
+    backBtn.innerText = "< Назад";
+
+    let downloadFiles = document.createElement('button');
+    downloadFiles.innerText = "Скачать файлы";
+
+    editContainer.querySelector('#editHeader').append(backBtn, downloadFiles);
     editContainer.querySelector('#editContent').append(galleryContainer, PhotoSettings());
+
+    editContainer.querySelector('#editHeader a').addEventListener('click', () => {
+        location.reload();
+    });
 
     return editContainer;
 }

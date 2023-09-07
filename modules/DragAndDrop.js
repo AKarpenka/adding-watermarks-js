@@ -1,5 +1,5 @@
 import EditGallery from "../pages/editGallery/EditGallery";
-import { previewFile } from '../components/previewFile/PreviewFile'
+import { previewFileAsImg } from '../components/previewFile/PreviewFile'
 
 let dropArea = document.getElementById('drop-area'),
     fileElem = document.getElementById('fileElem'),
@@ -92,10 +92,10 @@ function handleFiles(data) {
 
     //update preview
     if (data !== 'delete') {
-        newFiles.forEach(file => previewFile(file, gallery, true, false, handleDelete));
+        newFiles.forEach(file => previewFileAsImg(file, gallery, handleDelete));
     } else {
         gallery.innerHTML = "";
-        totalFiles.forEach(file => previewFile(file, gallery, true, false, handleDelete));
+        totalFiles.forEach(file => previewFileAsImg(file, gallery, handleDelete));
     }
 }
 
