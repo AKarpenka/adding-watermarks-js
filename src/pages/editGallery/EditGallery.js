@@ -27,7 +27,7 @@ const EditGallery = (files, settings = {
 
     let galleryContainer = document.createElement('div');
     galleryContainer.id = 'editGallery';
-    files.forEach(file => previewFilesAsCanvas(file, galleryContainer, settings));
+    files.forEach(file => previewFilesAsCanvas(file, galleryContainer, settings, 'textWattermark'));
 
     editContainer.querySelector('#editHeader').append(backBtn, downloadFiles);
     editContainer.querySelector('#editContent').append(galleryContainer, PhotoSettings(files));

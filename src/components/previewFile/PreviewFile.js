@@ -26,13 +26,12 @@ export function previewFileAsImg(file, elementToAppend, handleDelete) {
 }
 
 
-export function previewFilesAsCanvas(file, elementToAppend, settings) {
-    const {text, fontSize, transparency, position} = settings;
+export function previewFilesAsCanvas(file, elementToAppend, settings, mode) {
     let app = document.querySelector('#app');
 
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = function() {
+    reader.onloadend = async function() {
         let div = document.createElement('div');
         div.classList.add('img-container');
 
@@ -40,10 +39,19 @@ export function previewFilesAsCanvas(file, elementToAppend, settings) {
         originalImg.src = reader.result;
 
         let newImg = document.createElement('img');
-        newImg.src = watermakImageWithText(
-            originalImg,
-            text
-          );
+
+        if(mode === 'textWattermark') {
+            newImg.src = watermakImageWithText(
+                originalImg,
+                settings
+            );
+        } else if (mode === 'logoWattermark') {
+            newImg.src = await watermakImage(
+                originalImg,
+                settings
+            );
+        }
+
         newImg.id = file.lastModified; 
 
         div.append(newImg);
@@ -76,7 +84,8 @@ export function previewFilesAsCanvas(file, elementToAppend, settings) {
         div.append(eye);
 
 
-        function watermakImageWithText(originalImage, watermarkText) {
+        function watermakImageWithText(originalImage, settings) {
+            const {text, fontSize, transparency, position} = settings;
             const canvas = document.createElement("canvas");
             const context = canvas.getContext("2d");
           
@@ -96,44 +105,105 @@ export function previewFilesAsCanvas(file, elementToAppend, settings) {
             switch (position) {
                 case 'Сверху слева':
                     context.textAlign = "start";
-                    context.fillText(watermarkText, 30, 40);
+                    context.fillText(text, 30, 40);
                     break;
                 case 'Сверху посередине':
                     context.textAlign = "center";
-                    context.fillText(watermarkText, canvasWidth/2, 40);
+                    context.fillText(text, canvasWidth/2, 40);
                     break;
                 case 'Сверху справа':
                     context.textAlign = "end";
-                    context.fillText(watermarkText, canvasWidth-30, 40);
+                    context.fillText(text, canvasWidth-30, 40);
                     break;
                 case 'Посередине слева':
                     context.textAlign = "start";
-                    context.fillText(watermarkText, 30, canvasHeight/2);
+                    context.fillText(text, 30, canvasHeight/2);
                     break;
                 case 'Посередине':
                     context.textAlign = "center";
-                    context.fillText(watermarkText, canvasWidth/2, canvasHeight/2);
+                    context.fillText(text, canvasWidth/2, canvasHeight/2);
                     break;
                 case 'Посередине справа':
                     context.textAlign = "end";
-                    context.fillText(watermarkText, canvasWidth-30, canvasHeight/2);
+                    context.fillText(text, canvasWidth-30, canvasHeight/2);
                     break;
                 case 'Снизу слева':
                     context.textAlign = "start";
-                    context.fillText(watermarkText, 30, canvasHeight-40);
+                    context.fillText(text, 30, canvasHeight-40);
                     break;
                 case 'Снизу посередине':
                     context.textAlign = "center";
-                    context.fillText(watermarkText, canvasWidth/2, canvasHeight-40);
+                    context.fillText(text, canvasWidth/2, canvasHeight-40);
                     break;
                 case 'Снизу справа':
                     context.textAlign = "end";
-                    context.fillText(watermarkText, canvasWidth-30, canvasHeight-40);
+                    context.fillText(text, canvasWidth-30, canvasHeight-40);
                     break;
                 default:
                     break;
             }
 
+            return canvas.toDataURL();
+        }
+
+        async function watermakImage(originalImage, settings) {
+            const {logo, size, transparency, position} = settings; 
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+          
+            const canvasWidth = originalImage.width;
+            const canvasHeight = originalImage.height;
+          
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+          
+            // initializing the canvas with the original image
+            context.drawImage(originalImage, 0, 0, canvasWidth, canvasHeight);
+          
+            // loading the watermark image and transforming it into a pattern
+            const result = await fetch(logo?.currentSrc);
+            const blob = await result.blob();
+            const image = await createImageBitmap(blob, { resizeHeight: size }); 
+            const pattern = context.createPattern(image, "no-repeat");
+
+            // translating the watermark image to the bottom right corner
+            switch (position) {
+                case 'Сверху слева':
+                    context.translate(10, 10);
+                    break;
+                case 'Сверху посередине':
+                    context.translate(canvasWidth/2 - image.width/2, 10);
+                    break;
+                case 'Сверху справа':
+                    context.translate(canvasWidth-image.width-10, 10);
+                    break;
+                case 'Посередине слева':
+                    context.translate(10, canvasHeight/2 - image.height/2);
+                    break;
+                case 'Посередине':
+                    context.translate(canvasWidth/2 - image.width/2, canvasHeight/2 - image.height/2);
+                    break;
+                case 'Посередине справа':
+                    context.translate(canvasWidth-image.width-10, canvasHeight/2 - image.height/2);
+                    break;
+                case 'Снизу слева':
+                    context.translate(10, canvasHeight-image.height-10);
+                    break;
+                case 'Снизу посередине':
+                    context.translate(canvasWidth/2 - image.width/2, canvasHeight-image.height-10);
+                    break;
+                case 'Снизу справа':
+                    context.translate(canvasWidth-image.width-10, canvasHeight-image.height-10);
+                    break;
+                default:
+                    break;
+            }
+            context.rect(0, 0, canvasWidth, canvasHeight);
+            context.fillStyle = pattern;
+            context.globalAlpha = transparency/100;
+        
+            context.fill();
+          
             return canvas.toDataURL();
         }
 

@@ -1,7 +1,20 @@
 import './PhotoSettings.css';
 import { previewFilesAsCanvas } from '../previewFile/PreviewFile';
 
+const logoGallery = [
+    '/logo-1.png',
+    '/logo-2.png',
+    '/logo-3.png',
+    '/logo-4.png',
+    '/logo-5.png',
+    '/logo-6.png',
+    '/logo-7.png',
+    '/logo-8.png'
+]
+
 const PhotoSettings = (files) => {
+    let app = document.querySelector('#app');
+
     let editMenu = document.createElement('div');
     editMenu.id = 'editMenu';
 
@@ -27,6 +40,16 @@ const PhotoSettings = (files) => {
     }
 
     function onClickAddTextBtn() {
+        let addTextInput = document.createElement('input');
+        addTextInput.type = "text";
+        addTextInput.id = "textValue";
+        addTextInput.placeholder = "Ваш текст";
+
+        createSettings('textWattermark', addTextInput);
+    }
+
+
+    function createSettings(mode, wattermarkType) {
         editMenu.innerHTML = "";
 
         let backToBtn = document.createElement('a');
@@ -34,14 +57,15 @@ const PhotoSettings = (files) => {
 
         let form = document.createElement('form');
 
-        let addTextInput = document.createElement('input');
-        addTextInput.type = "text";
-        addTextInput.id = "textValue";
-        addTextInput.placeholder = "Ваш текст";
-
-        let fontSize = document.createElement('select');
-        for(let i = 10; i <= 42; i += 2) {
-            createSelect(i, fontSize, 'pt');
+        let logoSize = document.createElement('select');
+        if (mode==='textWattermark') {        
+            for(let i = 10; i <= 42; i += 2) {
+                createSelect(i, logoSize, 'pt');
+            }
+        } else if (mode === 'logoWattermark') {
+            for(let i = 10; i <= 300; i += 10) {
+                createSelect(i, logoSize, 'px');
+            }
         }
 
         let transparency = document.createElement('select');
@@ -69,13 +93,19 @@ const PhotoSettings = (files) => {
         submitBtn.type = 'submit';
         submitBtn.value = 'Применить';
 
-        form.append(
-            createDivSetting('Текст', addTextInput), 
-            createDivSetting('Размер шрифта', fontSize), 
+        if(mode === 'textWattermark') {
+            form.append(createDivSetting('Текст', wattermarkType));
+        } else if (mode === 'logoWattermark') {
+            form.append(createDivSetting('Выбранный логотип', wattermarkType));
+        }
+        
+        form.append(    
+            createDivSetting('Размер', logoSize),
             createDivSetting('Прозрачность', transparency), 
             createDivSetting('Позиция', position), 
             submitBtn
         );
+
         editMenu.append(backToBtn, form);
 
         editMenu.querySelector('a').addEventListener('click', () => {
@@ -83,7 +113,9 @@ const PhotoSettings = (files) => {
             createMainBtns();
         });
 
-        editMenu.querySelector('form').addEventListener('submit', handleSubmit);
+        editMenu.querySelector('form').addEventListener('submit', (e) => {
+            handleSubmit(e, mode, wattermarkType);
+        });
 
 
         function createDivSetting(text, el) {
@@ -104,29 +136,96 @@ const PhotoSettings = (files) => {
             el.appendChild(option);
         }
 
-        function handleSubmit(e) {
+        function handleSubmit(e, mode, logo) {
             e.preventDefault();
-            let obj = {
-                'text': e?.target[0]?.value || "Ваш текст",
-                'fontSize': e?.target[1]?.value,
-                'transparency': e?.target[2]?.value,
-                'position': e?.target[3]?.value
+
+            let obj = {};
+            if (mode === 'textWattermark'){
+                obj = {
+                    'text': e?.target[0]?.value || "Ваш текст",
+                    'fontSize': e?.target[1]?.value,
+                    'transparency': e?.target[2]?.value,
+                    'position': e?.target[3]?.value
+                }
+            } else if (mode === 'logoWattermark') {
+                obj = {
+                    logo,
+                    'size': e?.target[0]?.value,
+                    'transparency': e?.target[1]?.value,
+                    'position': e?.target[2]?.value
+                }
             }
 
             let galleryContainer = document.querySelector('#editGallery');
             galleryContainer.innerHTML = "";
-            files.forEach(file => previewFilesAsCanvas(file, galleryContainer, obj));
+            files.forEach(file => previewFilesAsCanvas(file, galleryContainer, obj, mode));
         }
+
     }
 
     function onClickAddLogoBtn() {
-        console.log('hey');
+        editMenu.innerHTML = "";
+
+        let backToBtn = document.createElement('a');
+        backToBtn.innerText = "< Назад";
+
+        let addLogoFromGallery = document.createElement('input');
+        addLogoFromGallery.type = "button";
+        addLogoFromGallery.id = "addLogoFromGallery";
+        addLogoFromGallery.value = "Выбрать из галереи";
+    
+        let addLogoFromFiles = document.createElement('input');
+        addLogoFromFiles.type = "file";
+        addLogoFromFiles.accept="image/*";
+        // addLogoBtn.id = "addLogoBtn";
+        // addLogoFromFiles.placeholder = "Выбрать из файлов";
+
+        editMenu.append(backToBtn, addLogoFromGallery, addLogoFromFiles);
+
+        editMenu.querySelector('a').addEventListener('click', () => {
+            editMenu.innerHTML = "";
+            createMainBtns();
+        });
+
+        editMenu.querySelector('#addLogoFromGallery').addEventListener('click', createLogoGallery);
+    }
+
+    function createLogoGallery() {
+        let div = document.createElement('div');
+        div.classList.add('logo-outer-container')
+
+        let logoGalleryContainer = document.createElement('div');
+        logoGalleryContainer.id ='logoContainer';
+
+        let closeBtn = document.createElement('a');
+        closeBtn.innerText = 'x';
+
+        logoGallery.forEach(src => {
+            let imgDiv = document.createElement('div');
+            imgDiv.classList.add('logo-btn')
+            let img = document.createElement('img');
+            img.src = src;
+            img.height = '70';
+
+            imgDiv.appendChild(img);
+            logoGalleryContainer.appendChild(imgDiv);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            app.removeChild(div);
+        });
+
+        logoGalleryContainer.addEventListener('click', (e) => {
+            createSettings('logoWattermark', e?.target);
+            app.removeChild(div);
+        });
+
+        div.append(logoGalleryContainer, closeBtn);
+        app.appendChild(div);
     }
 
     return editMenu;
 }
-
-
 
 
 export default PhotoSettings;

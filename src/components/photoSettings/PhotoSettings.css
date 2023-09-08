@@ -21,6 +21,7 @@
     font-family: inherit;
     cursor: pointer;
     border:1px solid white;
+    margin-bottom: 20px;
 }
 
 #editMenu input[type="button"]:hover {
@@ -29,7 +30,7 @@
 }
 
 #editMenu>p {
-    margin: 20px 5px;
+    margin: 0 5px 20px 5px;
     text-align: center;
 }
 
@@ -113,4 +114,49 @@ input:focus, select:focus {
 #editMenu form input[type="submit"]:active {
     border: 2px solid rgb(186, 186, 186);
     background-color: rgb(186, 186, 186);
+}
+
+.logo-outer-container {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+#logoContainer {
+    border-radius: 20px;
+    background-color: white;
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.logo-btn {
+    border: 1px solid rgba(96, 96, 96, 0.3);
+    cursor: pointer;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.logo-btn:hover {
+    background-color:rgba(125, 125, 125, 0.2);
+}
+
+.logo-btn>img {
+    height: 70px;
+}
+
+.logo-outer-container>a {
+    color: white;
+    font-size: 20pt;
+    font-family: inherit;
+    align-self: center;
+    margin-bottom: 300px;
+    cursor: pointer;
 }
