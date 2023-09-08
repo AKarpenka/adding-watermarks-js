@@ -67,7 +67,7 @@ const PhotoSettings = (files) => {
         addLogoFromFiles.accept="image/*";
 
         let fileBtnName = document.createElement('span');
-        fileBtnName.innerText = 'Выбрать из галереи';
+        fileBtnName.innerText = 'Выбрать из файлов';
 
         inputFile.append(addLogoFromFiles, fileBtnName);
 
@@ -80,14 +80,12 @@ const PhotoSettings = (files) => {
 
         editMenu.querySelector('#addLogoFromGallery').addEventListener('click', createLogoGallery);
         addLogoFromFiles.addEventListener('change', (e) => {
-            console.log(e);
             let reader = new FileReader();
             reader.readAsDataURL(e.target?.files[0]);
             reader.onloadend = function() {
                 let img = document.createElement('img');
                 img.src = reader.result;
 
-                console.log(img);
                 createSettings('logoWattermark', img);
             }
             
