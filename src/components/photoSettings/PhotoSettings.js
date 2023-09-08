@@ -48,6 +48,51 @@ const PhotoSettings = (files) => {
         createSettings('textWattermark', addTextInput);
     }
 
+    function onClickAddLogoBtn() {
+        editMenu.innerHTML = "";
+
+        let backToBtn = document.createElement('a');
+        backToBtn.innerText = "< Назад";
+
+        let addLogoFromGallery = document.createElement('input');
+        addLogoFromGallery.type = "button";
+        addLogoFromGallery.id = "addLogoFromGallery";
+        addLogoFromGallery.value = "Выбрать из галереи";
+    
+        let inputFile = document.createElement('label');
+        inputFile.classList.add('input-file');
+
+        let addLogoFromFiles = document.createElement('input');
+        addLogoFromFiles.type = "file";
+        addLogoFromFiles.accept="image/*";
+
+        let fileBtnName = document.createElement('span');
+        fileBtnName.innerText = 'Выбрать из галереи';
+
+        inputFile.append(addLogoFromFiles, fileBtnName);
+
+        editMenu.append(backToBtn, addLogoFromGallery, inputFile);
+
+        editMenu.querySelector('a').addEventListener('click', () => {
+            editMenu.innerHTML = "";
+            createMainBtns();
+        });
+
+        editMenu.querySelector('#addLogoFromGallery').addEventListener('click', createLogoGallery);
+        addLogoFromFiles.addEventListener('change', (e) => {
+            console.log(e);
+            let reader = new FileReader();
+            reader.readAsDataURL(e.target?.files[0]);
+            reader.onloadend = function() {
+                let img = document.createElement('img');
+                img.src = reader.result;
+
+                console.log(img);
+                createSettings('logoWattermark', img);
+            }
+            
+        })
+    }
 
     function createSettings(mode, wattermarkType) {
         editMenu.innerHTML = "";
@@ -163,33 +208,7 @@ const PhotoSettings = (files) => {
 
     }
 
-    function onClickAddLogoBtn() {
-        editMenu.innerHTML = "";
-
-        let backToBtn = document.createElement('a');
-        backToBtn.innerText = "< Назад";
-
-        let addLogoFromGallery = document.createElement('input');
-        addLogoFromGallery.type = "button";
-        addLogoFromGallery.id = "addLogoFromGallery";
-        addLogoFromGallery.value = "Выбрать из галереи";
     
-        let addLogoFromFiles = document.createElement('input');
-        addLogoFromFiles.type = "file";
-        addLogoFromFiles.accept="image/*";
-        // addLogoBtn.id = "addLogoBtn";
-        // addLogoFromFiles.placeholder = "Выбрать из файлов";
-
-        editMenu.append(backToBtn, addLogoFromGallery, addLogoFromFiles);
-
-        editMenu.querySelector('a').addEventListener('click', () => {
-            editMenu.innerHTML = "";
-            createMainBtns();
-        });
-
-        editMenu.querySelector('#addLogoFromGallery').addEventListener('click', createLogoGallery);
-    }
-
     function createLogoGallery() {
         let div = document.createElement('div');
         div.classList.add('logo-outer-container')
