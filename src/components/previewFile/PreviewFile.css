@@ -52,3 +52,15 @@ svg {
     margin: 40px 0 0 10px;
     cursor: pointer;
 }
+
+
+@media (max-width: 530px){
+    #bigImg {
+        height: 400px;
+    }
+
+    #closeBigImg {
+        font-size: 28pt;
+        margin: 100px 0 0 10px;
+    }
+}

@@ -1,6 +1,7 @@
 import './EditGallery.css';
 import PhotoSettings from '../../components/photoSettings/PhotoSettings';
 import { previewFilesAsCanvas } from '../../components/previewFile/PreviewFile';
+import { ShowSpinner, RemoveSpinner } from '../../components/spinner/Spinner';
 
 const EditGallery = (files, settings = {
     'text': "",
@@ -9,13 +10,15 @@ const EditGallery = (files, settings = {
     'position': 0
 }) => {
     let editContainer = document.createElement('div');
-    editContainer.classList.add('edit-container');
 
     editContainer.innerHTML = `
-        <div id="editHeader"> 
+        <div id="editHeaderContainer">
+            <div id="editHeader"></div>
+        </div>    
+        <div id="editContentContainer">
+            <div id="editContent"></div>
         </div>
-        <div id="editContent">
-        </div>
+
     `;
 
     let backBtn = document.createElement('a');
@@ -25,10 +28,12 @@ const EditGallery = (files, settings = {
     downloadFiles.id = "downloadFiles"
     downloadFiles.innerText = "Скачать файлы";
 
+    ShowSpinner();
     let galleryContainer = document.createElement('div');
     galleryContainer.id = 'editGallery';
     files.forEach(file => previewFilesAsCanvas(file, galleryContainer, settings, 'textWattermark'));
-
+    RemoveSpinner();
+    
     editContainer.querySelector('#editHeader').append(backBtn, downloadFiles);
     editContainer.querySelector('#editContent').append(galleryContainer, PhotoSettings(files));
 

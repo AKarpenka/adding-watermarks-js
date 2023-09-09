@@ -1,12 +1,19 @@
-.homePage {
+.home-page {
     min-height: 100vh;
     background: linear-gradient(180deg, rgba(37,57,84,1) 0%, rgba(233,75,28,1) 100%);
+    color: #FFF;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-container {
+    max-width: 1200px;    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #FFF;
-    padding: 40px 0;
 }
 
 h1 {

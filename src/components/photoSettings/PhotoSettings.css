@@ -28,6 +28,7 @@
     border:1px solid white;
     margin-bottom: 20px;
     color:black;
+    text-wrap: nowrap;
 }
 
 #editMenu input[type="button"]:hover, .input-file span:hover {
@@ -135,6 +136,7 @@ input:focus, select:focus {
     display: flex;
     justify-content: center;
     align-items:center;
+    overflow: hidden;
 }
 
 #logoContainer {
@@ -178,4 +180,33 @@ input:focus, select:focus {
 	display: block;
 	width: 0;
 	height: 0;
+}
+
+@media (max-width: 1040px){
+    #editMenu {
+        margin: 20px;
+    }
+}
+
+
+@media (max-width: 730px){
+    .logo-outer-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #logoContainer {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .logo-outer-container>a {
+        margin-bottom: 500px;
+        font-size: 28pt;
+    }
+}
+
+@media (max-width: 530px){
+    .setting {
+        display: block;
+    }
 }

@@ -1,5 +1,6 @@
 import EditGallery from "../pages/editGallery/EditGallery";
-import { previewFileAsImg } from '../components/previewFile/PreviewFile'
+import { previewFileAsImg } from '../components/previewFile/PreviewFile';
+import { ShowSpinner, RemoveSpinner } from "../components/spinner/Spinner";
 
 let dropArea = document.getElementById('drop-area'),
     fileElem = document.getElementById('fileElem'),
@@ -82,7 +83,6 @@ function handleFiles(data) {
         maxCountOfPhoto.style.display = "none";
         form.style.display = "block";
     }
-    // files.forEach(uploadFile);
 
     if(totalFiles.length > 0) {
         nextBtn.disabled = false;
@@ -90,6 +90,7 @@ function handleFiles(data) {
         nextBtn.disabled = true;
     }
 
+    ShowSpinner();
     //update preview
     if (data !== 'delete') {
         newFiles.forEach(file => previewFileAsImg(file, gallery, handleDelete));
@@ -97,6 +98,7 @@ function handleFiles(data) {
         gallery.innerHTML = "";
         totalFiles.forEach(file => previewFileAsImg(file, gallery, handleDelete));
     }
+    RemoveSpinner();
 }
 
 function handleDelete(e) {

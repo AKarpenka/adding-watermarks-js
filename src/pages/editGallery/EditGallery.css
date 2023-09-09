@@ -1,12 +1,16 @@
-.edit-container {}
+#editHeaderContainer {
+    background-color: #E94B1C;
+    display: flex;
+    justify-content: center;
+}
 
 #editHeader {
     width: 100%;
+    max-width: 1200px;
     padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items:center;
-    background-color: #E94B1C;
 }
 
 #editHeader a {
@@ -25,12 +29,19 @@
     padding: 20px 60px;
 }
 
+#editContentContainer {
+    display: flex;
+    justify-content: center;
+}
+
 #editContent {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     grid-template-rows: 100%;
     height: 100%;
     align-items: start;
+    width: 100%;
+    max-width: 1200px;
 }
 
 #editGallery {
@@ -40,4 +51,34 @@
     gap: 20px;
     justify-content: center;
     align-items:center;
+}
+
+@media (max-width: 1040px){
+    #editContent {
+        display: block;
+    }
+
+    #editGallery {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 730px){
+    #editGallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 530px){
+    #editHeader {
+        display: block;
+    }
+
+    #editHeader button {
+        margin-top: 20px;
+    }
+
+    #editGallery {
+        grid-template-columns: 1fr;
+    }
 }
