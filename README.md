@@ -6,14 +6,10 @@ The application allows you to upload photos using drag and drop or selecting fro
 # Preview 
 <p align="center">
   <img src="public/img-1.jpg" width="500"/>
-</p>
-<p align="center">
   <img src="public/img-2.jpg" width="500"/> 
 </p>
 <p align="center">
   <img src="public/img-4.jpg" width="500"/> 
-</p>
-<p align="center">
   <img src="public/img-3.jpg" width="500"/> 
 </p>
 
