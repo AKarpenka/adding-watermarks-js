@@ -100,20 +100,20 @@ export function previewFilesAsCanvas(file, elementToAppend, settings, mode) {
 
             // adding a watermark text
             context.fillStyle = `rgba(255, 225, 225, ${transparency/100})`;
-            context.font = `bold ${fontSize}pt sans-serif`;
+            context.font = `bold ${canvasWidth/250*fontSize}px sans-serif`;
 
             switch (position) {
                 case 'Сверху слева':
                     context.textAlign = "start";
-                    context.fillText(text, 30, 40);
+                    context.fillText(text, 30, 30+(canvasWidth/250*fontSize)/2);
                     break;
                 case 'Сверху посередине':
                     context.textAlign = "center";
-                    context.fillText(text, canvasWidth/2, 40);
+                    context.fillText(text, canvasWidth/2, 30+(canvasWidth/250*fontSize)/2);
                     break;
                 case 'Сверху справа':
                     context.textAlign = "end";
-                    context.fillText(text, canvasWidth-30, 40);
+                    context.fillText(text, canvasWidth-30, 30+(canvasWidth/250*fontSize)/2);
                     break;
                 case 'Посередине слева':
                     context.textAlign = "start";
@@ -163,7 +163,7 @@ export function previewFilesAsCanvas(file, elementToAppend, settings, mode) {
             // loading the watermark image and transforming it into a pattern
             const result = await fetch(logo?.currentSrc);
             const blob = await result.blob();
-            const image = await createImageBitmap(blob, { resizeHeight: size }); 
+            const image = await createImageBitmap(blob, { resizeHeight: canvasWidth/250*size }); 
             const pattern = context.createPattern(image, "no-repeat");
 
             // translating the watermark image to the bottom right corner

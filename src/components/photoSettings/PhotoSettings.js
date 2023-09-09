@@ -102,7 +102,7 @@ const PhotoSettings = (files) => {
 
         let logoSize = document.createElement('select');
         if (mode==='textWattermark') {        
-            for(let i = 10; i <= 42; i += 2) {
+            for(let i = 10; i <= 120; i += 2) {
                 createSelect(i, logoSize, 'pt');
             }
         } else if (mode === 'logoWattermark') {
