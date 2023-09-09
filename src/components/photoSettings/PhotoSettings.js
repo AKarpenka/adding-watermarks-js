@@ -2,14 +2,14 @@ import './PhotoSettings.css';
 import { previewFilesAsCanvas } from '../previewFile/PreviewFile';
 
 const logoGallery = [
-    '/logo-1.png',
-    '/logo-2.png',
-    '/logo-3.png',
-    '/logo-4.png',
-    '/logo-5.png',
-    '/logo-6.png',
-    '/logo-7.png',
-    '/logo-8.png'
+    '/adding-watermarks-js/logo-1.png',
+    '/adding-watermarks-js/logo-2.png',
+    '/adding-watermarks-js/logo-3.png',
+    '/adding-watermarks-js/logo-4.png',
+    '/adding-watermarks-js/logo-5.png',
+    '/adding-watermarks-js/logo-6.png',
+    '/adding-watermarks-js/logo-7.png',
+    '/adding-watermarks-js/logo-8.png'
 ]
 
 const PhotoSettings = (files) => {
