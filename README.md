@@ -3,7 +3,7 @@ The application allows you to upload photos using drag and drop or selecting fro
 
 `Vanilla JS`  `Vite.js`  `Drag&Drop`  
 
-#Try It
+# Try It 
 https://adding-watermarks.vercel.app
 
 # Preview 
