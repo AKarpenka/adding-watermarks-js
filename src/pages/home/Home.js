@@ -6,9 +6,9 @@ const Home = () => {
     return (`
         <div class="home-page">
             <div class="home-container">
-                <h1>Выберите фото,<br> на которые вы хотели бы наложить водяной знак</h1>
+                <h1>Choose a photo, <br>to which you would like to add a watermark</h1>
                 ${PhotoUploader()}
-                ${BtnBlue('Далее', 'nextBtn', true)}
+                ${BtnBlue('Next', 'nextBtn', true)}
             </div>
         </div>
     `)

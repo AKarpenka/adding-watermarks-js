@@ -22,11 +22,11 @@ const EditGallery = (files, settings = {
     `;
 
     let backBtn = document.createElement('a');
-    backBtn.innerText = "< Назад";
+    backBtn.innerText = "< Back";
 
     let downloadFiles = document.createElement('button');
     downloadFiles.id = "downloadFiles"
-    downloadFiles.innerText = "Скачать файлы";
+    downloadFiles.innerText = "Download files";
 
     ShowSpinner();
     let galleryContainer = document.createElement('div');

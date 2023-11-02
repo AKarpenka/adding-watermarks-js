@@ -21,18 +21,18 @@ const PhotoSettings = (files) => {
     let addTextBtn = document.createElement('input');
     addTextBtn.type = "button";
     addTextBtn.id = "addTextBtn"
-    addTextBtn.value = "Добавить текст";
+    addTextBtn.value = "Add Text";
 
     let addLogoBtn = document.createElement('input');
     addLogoBtn.type = "button";
     addLogoBtn.id = "addLogoBtn";
-    addLogoBtn.value = "Добавить логотип";
+    addLogoBtn.value = "Add Logo";
 
     createMainBtns();
 
     function createMainBtns() {
         editMenu.appendChild(addTextBtn);
-        editMenu.innerHTML += '<p>или</p>';
+        editMenu.innerHTML += '<p>or</p>';
         editMenu.appendChild(addLogoBtn);
 
         editMenu.querySelector('#addTextBtn').addEventListener('click', onClickAddTextBtn);
@@ -43,7 +43,7 @@ const PhotoSettings = (files) => {
         let addTextInput = document.createElement('input');
         addTextInput.type = "text";
         addTextInput.id = "textValue";
-        addTextInput.placeholder = "Ваш текст";
+        addTextInput.placeholder = "Your Text";
 
         createSettings('textWattermark', addTextInput);
     }
@@ -52,12 +52,12 @@ const PhotoSettings = (files) => {
         editMenu.innerHTML = "";
 
         let backToBtn = document.createElement('a');
-        backToBtn.innerText = "< Назад";
+        backToBtn.innerText = "< Back";
 
         let addLogoFromGallery = document.createElement('input');
         addLogoFromGallery.type = "button";
         addLogoFromGallery.id = "addLogoFromGallery";
-        addLogoFromGallery.value = "Выбрать из галереи";
+        addLogoFromGallery.value = "Choose from Gallery";
     
         let inputFile = document.createElement('label');
         inputFile.classList.add('input-file');
@@ -67,7 +67,7 @@ const PhotoSettings = (files) => {
         addLogoFromFiles.accept="image/*";
 
         let fileBtnName = document.createElement('span');
-        fileBtnName.innerText = 'Выбрать из файлов';
+        fileBtnName.innerText = 'Choose from files';
 
         inputFile.append(addLogoFromFiles, fileBtnName);
 
@@ -96,7 +96,7 @@ const PhotoSettings = (files) => {
         editMenu.innerHTML = "";
 
         let backToBtn = document.createElement('a');
-        backToBtn.innerText = "< Назад";
+        backToBtn.innerText = "< Back";
 
         let form = document.createElement('form');
 
@@ -118,15 +118,15 @@ const PhotoSettings = (files) => {
 
         let position = document.createElement('select');
         const positionOptions = [
-            'Сверху слева',
-            'Сверху посередине',
-            'Сверху справа',
-            'Посередине слева',
-            'Посередине',
-            'Посередине справа',
-            'Снизу слева',
-            'Снизу посередине',
-            'Снизу справа'
+            'Top-Left',
+            'Top-Center',
+            'Top-Right',
+            'Center-Left',
+            'Center-Center',
+            'Center-Right',
+            'Bottom-Left',
+            'Bottom-Center',
+            'Bottom-Right'
         ];
         positionOptions.forEach(el => {
             createSelect(el, position);
@@ -134,18 +134,18 @@ const PhotoSettings = (files) => {
 
         let submitBtn = document.createElement('input');
         submitBtn.type = 'submit';
-        submitBtn.value = 'Применить';
+        submitBtn.value = 'Apply';
 
         if(mode === 'textWattermark') {
-            form.append(createDivSetting('Текст', wattermarkType));
+            form.append(createDivSetting('Text', wattermarkType));
         } else if (mode === 'logoWattermark') {
-            form.append(createDivSetting('Выбранный логотип', wattermarkType));
+            form.append(createDivSetting('Selected Logo', wattermarkType));
         }
         
         form.append(    
-            createDivSetting('Размер', logoSize),
-            createDivSetting('Прозрачность', transparency), 
-            createDivSetting('Позиция', position), 
+            createDivSetting('Size', logoSize),
+            createDivSetting('Transparency', transparency), 
+            createDivSetting('Position', position), 
             submitBtn
         );
 
@@ -185,7 +185,7 @@ const PhotoSettings = (files) => {
             let obj = {};
             if (mode === 'textWattermark'){
                 obj = {
-                    'text': e?.target[0]?.value || "Ваш текст",
+                    'text': e?.target[0]?.value || "Your Text",
                     'fontSize': e?.target[1]?.value,
                     'transparency': e?.target[2]?.value,
                     'position': e?.target[3]?.value
